@@ -6,18 +6,18 @@
     {
       "url": "grpc://localhost:7051",
       "events": "grpc://localhost:7053",
-      "msp": "./network-objects/peer-msp"
+      "msp": "./node_modules/@worldsibu/convector-tool-dev-env/network-objects/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com"
     }
   ],
   "orderer": {
     "url": "grpc://localhost:7050",
-    "msp": "./network-objects/peer-msp"
+    "msp": "./node_modules/@worldsibu/convector-tool-dev-env/network-objects/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com"
   },
   "admin": {
     "name": "admin",
     "mspName": "Org1MSP",
-    "keyStore": "./network-objects/keystore",
-    "msp": "./network-objects/admin-msp"
+    "keyStore": "./.hfc-key-store",
+    "msp": "./node_modules/@worldsibu/convector-tool-dev-env/network-objects/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com"
   },
   "controllers": [
     {
