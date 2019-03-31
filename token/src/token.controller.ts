@@ -6,12 +6,13 @@ import {
   ConvectorController,
   Invokable,
   Param
-} from '@worldsibu/convector-core-controller';
+} from '@worldsibu/convector-core';
 
 import { Token } from './token.model';
+import { ChaincodeTx } from '@worldsibu/convector-core-chaincode';
 
 @Controller('token')
-export class TokenController extends ConvectorController {
+export class TokenController extends ConvectorController<ChaincodeTx> {
   private initialized = false;
 
   @Invokable()

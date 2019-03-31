@@ -3,3 +3,6 @@ token-client
 node_modules
 .DS_Store
 .hfc-key-store
+.history
+
+/chaincode-token

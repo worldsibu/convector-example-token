@@ -5,19 +5,16 @@
   "main": "index.js",
   "license": "ISC",
   "scripts": {
-    "restart": "./node_modules/@worldsibu/convector-tool-dev-env/scripts/restart.sh && npm run cc:build && npm run cc:install --",
-    "start": "./node_modules/@worldsibu/convector-tool-dev-env/scripts/start.sh && npm run cc:build && npm run cc:upgrade --",
+    "start": "npm run cc:package && hurl new -u 10 && npm run cc:install",
     "test": "mocha -r ts-node/register tests/**/*.spec.ts --reporter spec",
-    "build": "generate-controller-interface -c TokenController -p ./token/tsconfig.json -o ../token-client",
-    "user:fingerprint": "f () { node -e \"console.log(JSON.parse(require('fs').readFileSync('./.hfc-key-store/$1', 'utf8')).enrollment.identity.certificate)\" | openssl x509 -fingerprint -noout | cut -d '=' -f2 ; }; f",
+    "user:fingerprint": "f () {  node -e \"const homedir = require('os').homedir(); console.log(JSON.parse(require('fs').readFileSync('/'+homedir+'/hyperledger-fabric-network/.hfc-org1/$1', 'utf8')).enrollment.identity.certificate)\" | openssl x509 -fingerprint -noout | cut -d '=' -f2 ; }; f",
     "cc:build": "tsc -p ./token/tsconfig.json",
-    "cc:install": "chaincode-manager --config ./chaincode.config.json install token",
-    "cc:upgrade": "chaincode-manager --config ./chaincode.config.json upgrade token",
-    "cc:invoke": "chaincode-manager --config ./chaincode.config.json invoke token"
+    "cc:install": "hurl install token node -P ./chaincode-token",
+    "cc:upgrade": "f() { npm run cc:package; hurl upgrade token node $1 -P ./chaincode-token ;}; f",
+    "cc:package": "f() { npm run cc:build; chaincode-manager --config ./chaincode.config.json --output ./chaincode-token package; }; f"
   },
   "dependencies": {
-    "@worldsibu/convector-core-controller": "1.0.0",
-    "@worldsibu/convector-core-model": "1.0.0",
+    "@worldsibu/convector-core": "~1.3.3",
     "reflect-metadata": "0.1.12"
   },
   "devDependencies": {
@@ -25,9 +22,9 @@
     "@types/mocha": "^2.2.43",
     "@types/node": "^10.3.2",
     "@types/uuid": "^3.4.3",
-    "@worldsibu/convector-adapter-mock": "1.0.0",
-    "@worldsibu/convector-tool-chaincode-manager": "1.0.0",
-    "@worldsibu/convector-tool-dev-env": "1.0.0",
+    "@worldsibu/hurley": "~1.0.1",
+    "@worldsibu/convector-adapter-mock": "~1.3.3",
+    "@worldsibu/convector-tool-chaincode-manager": "~1.3.3",
     "chai": "^4.1.2",
     "mocha": "^5.0.3",
     "rimraf": "^2.6.2",

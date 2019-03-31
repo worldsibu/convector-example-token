@@ -7,12 +7,13 @@ import { MockControllerAdapter } from '@worldsibu/convector-adapter-mock';
 import 'mocha';
 
 import { Token } from '../token/src/token.model';
-import { TokenControllerClient } from '../token-client';
+import { TokenController } from '../token/src';
+import { ClientFactory } from '@worldsibu/convector-core';
 
 describe('Token', () => {
   let tokenId: string;
   let adapter: MockControllerAdapter;
-  let tokenCtrl: TokenControllerClient;
+  let tokenCtrl: TokenController;
 
   const totalSupply = 1000000;
   // Mock certificate fingerprint
@@ -21,7 +22,7 @@ describe('Token', () => {
   before(async () => {
     tokenId = uuid();
     adapter = new MockControllerAdapter();
-    tokenCtrl = new TokenControllerClient(adapter);
+    tokenCtrl = ClientFactory(TokenController, adapter);
 
     await adapter.init([
       {
