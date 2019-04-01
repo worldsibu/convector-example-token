@@ -6,12 +6,12 @@
   "license": "ISC",
   "scripts": {
     "start": "npm run cc:package && hurl new -u 10 && npm run cc:install",
-    "test": "mocha -r ts-node/register tests/**/*.spec.ts --reporter spec",
+    "test": "npm run cc:build && mocha -r ts-node/register tests/**/*.spec.ts --reporter spec",
     "user:fingerprint": "f () {  node -e \"const homedir = require('os').homedir(); console.log(JSON.parse(require('fs').readFileSync('/'+homedir+'/hyperledger-fabric-network/.hfc-org1/$1', 'utf8')).enrollment.identity.certificate)\" | openssl x509 -fingerprint -noout | cut -d '=' -f2 ; }; f",
     "cc:build": "tsc -p ./token/tsconfig.json",
     "cc:install": "hurl install token node -P ./chaincode-token",
     "cc:upgrade": "f() { npm run cc:package; hurl upgrade token node $1 -P ./chaincode-token ;}; f",
-    "cc:package": "f() { npm run cc:build; chaincode-manager --config ./chaincode.config.json --output ./chaincode-token package; }; f"
+    "cc:package": "f() { npm run cc:build; chaincode-manager --config ./token.config.json --output ./chaincode-token package; }; f"
   },
   "dependencies": {
     "@worldsibu/convector-core": "~1.3.3",
@@ -24,7 +24,7 @@
     "@types/uuid": "^3.4.3",
     "@worldsibu/hurley": "~1.0.1",
     "@worldsibu/convector-adapter-mock": "~1.3.3",
-    "@worldsibu/convector-tool-chaincode-manager": "~1.3.3",
+    "@worldsibu/convector-platform-fabric": "~1.3.3",
     "chai": "^4.1.2",
     "mocha": "^5.0.3",
     "rimraf": "^2.6.2",

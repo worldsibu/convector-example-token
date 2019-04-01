@@ -34,6 +34,7 @@ describe('Token', () => {
   });
 
   it('should initialize the token', async () => {
+    debugger;
     await tokenCtrl.init(new Token({
       id: tokenId,
       name: 'Token',

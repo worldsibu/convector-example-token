@@ -9,7 +9,7 @@ import {
 } from '@worldsibu/convector-core';
 
 import { Token } from './token.model';
-import { ChaincodeTx } from '@worldsibu/convector-core-chaincode';
+import { ChaincodeTx } from '@worldsibu/convector-platform-fabric';
 
 @Controller('token')
 export class TokenController extends ConvectorController<ChaincodeTx> {
